@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<records>
+    <record type="SOA" mname="iridium.netsource.ie" address="212.17.32.1"/>
+    <record type="NS" target="iridium.netsource.ie" address="212.17.32.1" recursive="True" Version=""/>
+    <record type="NS" target="ice.netsource.ie" address="212.17.32.2" recursive="True" Version=""/>
+    <record type="NS" target="bogben.netsource.ie" address="87.232.134.50" recursive="True" Version=""/>
+    <record type="MX" exchange="mail.esb.ie" address="87.198.212.129"/>
+    <record type="A" name="esb.ie" address="87.198.212.180"/>
+    <record type="SRV" name="_sip._tls.esb.ie" target="sipdir.online.lync.com" address="52.112.209.75" port="443"/>
+    <record type="SRV" name="_sip._tls.esb.ie" target="sipdir.online.lync.com" address="2603:1027:0:45::c" port="443"/>
+    <record type="SRV" name="_sipfederationtls._tcp.esb.ie" target="sipfed.online.lync.com" address="52.112.192.203" port="5061"/>
+    <record type="SRV" name="_sipfederationtls._tcp.esb.ie" target="sipfed.online.lync.com" address="2603:1027:0:45::c" port="5061"/>
+    <scaninfo arguments="./dnsrecon.py -d esb.ie --disable_check_bindversion -x esb.xml -c esb.csv -j esb.json --db esb.db -w" time="2021-04-24 18:11:04.429805"/>
+    <domain domain_name="esb.ie"/>
+</records>

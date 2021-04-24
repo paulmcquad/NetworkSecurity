@@ -1,0 +1,20 @@
+NS: ice.netsource.ie. bogben.netsource.ie. iridium.netsource.ie.
+SOA: iridium.netsource.ie. (212.17.32.1)
+Zone: failure
+Wildcard: failure
+Found: careers.esb.ie. (213.52.186.224)
+Found: cr.esb.ie. (13.74.254.185)
+Found: ftp.esb.ie. (87.198.212.129)
+Nearby:
+{'87.198.212.124': '87-198-212-124.ptr.magnet.ie.',
+ '87.198.212.125': '87-198-212-125.ptr.magnet.ie.',
+ '87.198.212.126': '87-198-212-126.ptr.magnet.ie.',
+ '87.198.212.127': '87-198-212-127.ptr.magnet.ie.',
+ '87.198.212.128': '87-198-212-128.ptr.magnet.ie.',
+ '87.198.212.129': 'mail.esbie.co.uk.',
+ '87.198.212.130': '87-198-212-130.ptr.magnet.ie.',
+ '87.198.212.131': '87-198-212-131.ptr.magnet.ie.',
+ '87.198.212.132': '87-198-212-132.ptr.magnet.ie.',
+ '87.198.212.133': '87-198-212-133.ptr.magnet.ie.',
+ '87.198.212.134': '87-198-212-134.ptr.magnet.ie.'}
+Found: mail.esb.ie. (87.198.212.129)

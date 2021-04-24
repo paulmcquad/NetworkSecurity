@@ -1,0 +1,33 @@
+└─$ sudo dnstracer -4 esb.ie                                                                                                                            1 ⨯
+Tracing to esb.ie[a] via 192.168.0.1, maximum of 3 retries
+192.168.0.1 (192.168.0.1) 
+ |\___ h.ns.ie [ie] (2001:0660:3005:0001:0000:0000:0001:0002) Not queried
+ |\___ h.ns.ie [ie] (192.93.0.4) 
+ |     |\___ ice.netsource.ie [esb.ie] (212.17.32.2) Got authoritative answer 
+ |     |\___ iridium.netsource.ie [esb.ie] (212.17.32.1) Got authoritative answer 
+ |      \___ bogben.netsource.ie [esb.ie] (87.232.134.50) Got authoritative answer 
+ |\___ i.ns.ie [ie] (2001:0678:0020:0000:0000:0000:0000:0035) Not queried
+ |\___ i.ns.ie [ie] (194.0.25.35) 
+ |     |\___ iridium.netsource.ie [esb.ie] (212.17.32.1) (cached)
+ |     |\___ bogben.netsource.ie [esb.ie] (87.232.134.50) (cached)
+ |      \___ ice.netsource.ie [esb.ie] (212.17.32.2) (cached)
+ |\___ d.ns.ie [ie] (2a01:03f0:0000:0309:0000:0000:0000:0053) Not queried
+ |\___ d.ns.ie [ie] (77.72.229.245) 
+ |     |\___ ice.netsource.ie [esb.ie] (212.17.32.2) (cached)
+ |     |\___ iridium.netsource.ie [esb.ie] (212.17.32.1) (cached)
+ |      \___ bogben.netsource.ie [esb.ie] (87.232.134.50) (cached)
+ |\___ g.ns.ie [ie] (2001:07c8:0002:000a:0000:0000:0000:0064) Not queried
+ |\___ g.ns.ie [ie] (192.111.39.100) 
+ |     |\___ ice.netsource.ie [esb.ie] (212.17.32.2) (cached)
+ |     |\___ bogben.netsource.ie [esb.ie] (87.232.134.50) (cached)
+ |      \___ iridium.netsource.ie [esb.ie] (212.17.32.1) (cached)
+ |\___ b.ns.ie [ie] (2a01:04b0:0000:0000:0000:0000:0000:0002) Not queried
+ |\___ b.ns.ie [ie] (77.72.72.34) 
+ |     |\___ iridium.netsource.ie [esb.ie] (212.17.32.1) (cached)
+ |     |\___ bogben.netsource.ie [esb.ie] (87.232.134.50) (cached)
+ |      \___ ice.netsource.ie [esb.ie] (212.17.32.2) (cached)
+ |\___ c.ns.ie [ie] (2001:067c:1010:0025:0000:0000:0000:0053) Not queried
+  \___ c.ns.ie [ie] (194.146.106.98) 
+       |\___ iridium.netsource.ie [esb.ie] (212.17.32.1) (cached)
+       |\___ ice.netsource.ie [esb.ie] (212.17.32.2) (cached)
+        \___ bogben.netsource.ie [esb.ie] (87.232.134.50) (cached)

@@ -1,0 +1,11 @@
+Type,Name,Address,Target,Port,String
+SOA,iridium.netsource.ie,212.17.32.1
+NS,iridium.netsource.ie,212.17.32.1
+NS,ice.netsource.ie,212.17.32.2
+NS,bogben.netsource.ie,87.232.134.50
+MX,mail.esb.ie,87.198.212.129
+A,esb.ie,87.198.212.180
+SRV,_sip._tls.esb.ie,52.112.209.75,sipdir.online.lync.com,443
+SRV,_sip._tls.esb.ie,2603:1027:0:8::b,sipdir.online.lync.com,443
+SRV,_sipfederationtls._tcp.esb.ie,52.112.192.203,sipfed.online.lync.com,5061
+SRV,_sipfederationtls._tcp.esb.ie,2603:1027:0:45::c,sipfed.online.lync.com,5061

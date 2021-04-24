@@ -1,0 +1,71 @@
+[
+    {
+        "arguments": "./dnsrecon.py -d esb.ie --disable_check_bindversion -j esb.json",
+        "date": "2021-04-24 18:23:06.673908",
+        "type": "ScanInfo"
+    },
+    {
+        "address": "212.17.32.1",
+        "mname": "iridium.netsource.ie",
+        "type": "SOA"
+    },
+    {
+        "Version": "",
+        "address": "212.17.32.2",
+        "recursive": "True",
+        "target": "ice.netsource.ie",
+        "type": "NS"
+    },
+    {
+        "Version": "",
+        "address": "212.17.32.1",
+        "recursive": "True",
+        "target": "iridium.netsource.ie",
+        "type": "NS"
+    },
+    {
+        "Version": "",
+        "address": "87.232.134.50",
+        "recursive": "True",
+        "target": "bogben.netsource.ie",
+        "type": "NS"
+    },
+    {
+        "address": "87.198.212.129",
+        "exchange": "mail.esb.ie",
+        "type": "MX"
+    },
+    {
+        "address": "87.198.212.180",
+        "name": "esb.ie",
+        "type": "A"
+    },
+    {
+        "address": "52.112.193.203",
+        "name": "_sip._tls.esb.ie",
+        "port": "443",
+        "target": "sipdir.online.lync.com",
+        "type": "SRV"
+    },
+    {
+        "address": "2603:1027:0:45::c",
+        "name": "_sip._tls.esb.ie",
+        "port": "443",
+        "target": "sipdir.online.lync.com",
+        "type": "SRV"
+    },
+    {
+        "address": "52.112.192.203",
+        "name": "_sipfederationtls._tcp.esb.ie",
+        "port": "5061",
+        "target": "sipfed.online.lync.com",
+        "type": "SRV"
+    },
+    {
+        "address": "2603:1027:0:45::c",
+        "name": "_sipfederationtls._tcp.esb.ie",
+        "port": "5061",
+        "target": "sipfed.online.lync.com",
+        "type": "SRV"
+    }
+]
